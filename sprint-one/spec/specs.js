@@ -75,6 +75,7 @@ define([
       it('removes the most recently added of two items', function() {
         stack.push('a');
         stack.push('b');
+        debugger;
         expect(stack.pop()).to.equal('b');
       });
 
@@ -82,7 +83,8 @@ define([
         stack.push('a');
         stack.push('b');
         stack.push('c');
-        stack.pop();
+        console.log(stack.pop());
+        debugger;
         expect(stack.pop()).to.equal('b');
       });
     });
@@ -153,8 +155,7 @@ define([
       it('removes the oldest item, after newer items have already been added and removed', function() {
         queue.enqueue('a');
         queue.enqueue('b');
-        console.log(queue.dequeue());
-        debugger;
+        queue.dequeue();
         queue.enqueue('c');
         expect(queue.dequeue()).to.equal('b');
       });
