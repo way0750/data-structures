@@ -29,11 +29,13 @@ var LinkedList = function() {
   // go through the list one node at the time
   // compare node.value with target
   // return if found
-  list.contains = function(target) {
+  list.contains = function(target, returnNodeInstead) {
     var curNode = list.head;
     
     while(curNode !== null){
-      if (curNode.value === target){return true;}
+      if (curNode.value === target){
+        return returnNodeInstead ? curNode : true;
+      }
       curNode = curNode.next;
     }
     return false;
