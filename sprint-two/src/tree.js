@@ -34,6 +34,15 @@ treeMethods.removeFromParent = function(){
 	
 };
 
+treeMethods.traverse = function(callBack){
+	callBack(this.value);
+	if (this.children){
+		for (var childName in this.children){
+			this.children[childName].traverse(callBack);
+		}
+	}
+};
+
 
 treeMethods.addChild = function(value) {
   // your code here
@@ -58,13 +67,6 @@ treeMethods.contains = function(target) {
 	if (this.value === target){
 		return true;
 	} else if (this.children){
-		// for (var i = 0; i < this.children.length; ++i){
-		// 	var childNode = this.children[i];
-		//  	if (childNode.contains(target)){
-		//  		return true;
-		//  	}			
-		// }
-		// 
 		for (var childName in this.children){
 			if (this.children[childName].contains(target)){return true;}
 		}
