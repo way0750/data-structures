@@ -161,7 +161,7 @@ HashTable.prototype.insert = function(k, v) {
   this.entrySize++;
 
 
-  if ( (this.entrySize  /  this._limit) >= 0.75 ) {
+  if ( (this.entrySize  /  this._limit) > 0.75 ) {
   	this.changeTableSize();
   }
 
@@ -180,7 +180,7 @@ HashTable.prototype.remove = function(k) {
   if (Object.keys(this._storage.get(index)).length === 0 ){this._storage.set(index, null);}
   this.entrySize--;
 
-  if ( (this.entrySize  /  this._limit) <= 0.20 ) {
+  if ( (this.entrySize  /  this._limit) < 0.25 ) {
   	this.changeTableSize();
   }
 

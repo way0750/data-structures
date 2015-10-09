@@ -1,5 +1,5 @@
 describe('tree', function() {
-  var tree;
+  var tree, subTree;
 
   beforeEach(function() {
     tree = Tree();
@@ -13,7 +13,8 @@ describe('tree', function() {
 
   it('should add children to the tree', function() {
     tree.addChild(5);
-    expect(tree.children[0].value).to.equal(5);
+    // expect(tree.children[0].value).to.equal(5);
+    expect(tree.children[5].value).to.equal(5);
   });
 
   it('should return true for a value that the tree contains', function(){
@@ -28,17 +29,33 @@ describe('tree', function() {
 
   it('should be able to add children to a tree\'s child', function() {
     tree.addChild(5);
-    tree.children[0].addChild(6);
-    expect(tree.children[0].children[0].value).to.equal(6);
+    tree.children[5].addChild(6);
+    expect(tree.children[5].children[6].value).to.equal(6);
   });
 
   it('should correctly detect nested children', function(){
     tree.addChild(5);
     tree.addChild(6);
-    tree.children[0].addChild(7);
-    tree.children[1].addChild(8);
+    tree.children[5].addChild(7);
+    tree.children[6].addChild(8);
     expect(tree.contains(7)).to.equal(true);
     expect(tree.contains(8)).to.equal(true);
   });
+
+  it('should be able to return parent', function(){
+    tree.addChild(5);
+    tree.addChild(6);
+    expect(tree.children[5].parent).to.equal(tree);
+    expect(tree.parent).to.equal(null);
+  });
+
+  it('should be able to remove parent', function(){
+    tree.addChild(5);
+    tree.addChild(6);
+    subTree = tree.children[6];
+    subTree.removeFromParent();
+    expect(subTree.parent).to.equal(null);
+  });
+
 
 });

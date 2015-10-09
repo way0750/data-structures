@@ -12,44 +12,18 @@ var LinkedList = function() {
       list.tail = newNode;
     } else {
       list.tail.next = newNode;
-      newNode.previous = list.tail;
       list.tail = newNode;
     }
-  };
-
-  list.addToHead = function (value) {
-    var newNode = new Node(value);
-    if (list.head === null){
-      list.head = newNode;
-      list.tail = newNode;
-    } else { 
-      list.head.previous = newNode;     
-      newNode.next = list.head;
-      list.head = newNode;
-    }
-  };
-
-  list.removeTail = function(){
-    var removedTailValue = list.tail.value;
-    var newTail = list.tail ? list.tail.previous : null;
-    if (list.tail){list.tail.previous = null;}
-    if (newTail){newTail.next = null;}
-    list.tail = newTail;
-    return removedTailValue;
   };
 
   // find list.head, remove it
   // update list.head
   list.removeHead = function() {
-    if (list.head == null ){return null;}
-    
-    var formerHead = list.head;
-    list.head = formerHead.next;
-    if (list.head){list.head.previous = null;}
-    formerHead.next = null;
-
-    return formerHead.value;
-
+    if (list.head !== null){
+      var formerHead = list.head;
+      list.head = list.head.next;
+      return formerHead.value;
+    }
   };
 
   // go through the list one node at the time
@@ -70,14 +44,11 @@ var LinkedList = function() {
   return list;
 };
 
-
-
 var Node = function(value) {
   var node = {};
 
   node.value = value;
   node.next = null;
-  node.previous = null;
 
   return node;
 };

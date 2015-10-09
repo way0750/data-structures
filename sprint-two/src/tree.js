@@ -1,12 +1,13 @@
 // a tree IS a node
 
-var Tree = function(value) {
+var Tree = function(value, parent) {
   var newTree = {};
 
   newTree.value = value;
 
   // your code here
   newTree.children = null;  // fix me
+  newTree.parent = parent || null;
 
   for(var methName in treeMethods){
   	newTree[methName] = treeMethods[methName];
@@ -18,12 +19,31 @@ var Tree = function(value) {
 var treeMethods = {};
 
 
+// remove parent child relationship as a way to disconnect a sub tree;
+// set parent to null
+// then go to parent's children list and remove self.
+
+treeMethods.removeFromParent = function(){
+	var formerParent = this.parent;
+	// delete child in parent's list
+	delete formerParent[this.value];
+	// return formerParent.children;
+	
+	// delete parent current tree's parent property
+	this.parent = null;
+	
+};
+
+
 treeMethods.addChild = function(value) {
   // your code here
-  var newNode = new Tree(value);
+  var newNode = new Tree(value, this);
 
-  this.children = ( this.children ? this.children.concat([newNode]) : [newNode]);
-
+  // use child's value as key too
+  // so just keep children as valueAsKey : treeObj in a object.
+  // this.children ? this.children[value] = newNode : this.children = { value : newNode};
+  if (!this.children){this.children = {};}
+  this.children[value] = newNode;
 };
 
 treeMethods.contains = function(target) {
@@ -34,21 +54,23 @@ treeMethods.contains = function(target) {
 	//how to break: if current node.value !== target then call contains again with current node.child
 	// what to return: if matching value is found, then return true;
 	// what to do about return, check and see if it is true, if yes, then keep on returning, if false, call next child
-
+	
 	if (this.value === target){
 		return true;
 	} else if (this.children){
-		for (var i = 0; i < this.children.length; ++i){
-			var childNode = this.children[i];
-		 	if (childNode.contains(target)){
-		 		return true;
-		 	}			
+		// for (var i = 0; i < this.children.length; ++i){
+		// 	var childNode = this.children[i];
+		//  	if (childNode.contains(target)){
+		//  		return true;
+		//  	}			
+		// }
+		// 
+		for (var childName in this.children){
+			if (this.children[childName].contains(target)){return true;}
 		}
 	}
 	return false;
 };
-
-
 
 /*
  * Complexity: What is the time complexity of the above functions?
