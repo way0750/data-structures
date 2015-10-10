@@ -1,0 +1,18 @@
+rebuild the binary tree
+should be very easy because everything is still sorted, recursively build smaller arrays from bottom up, and concat them as one big
+array, then rebuild that sorted array and use the mid point value as highest node, thus allowing the new tree to be more balanced
+
+
+minDepth: the highest spot/lowest depth where you can enter a value;
+maxDepth: the lowest spot/highest depth where you can enter a  value;
+
+how do you find the depth?
+and how do you know the current difference between minDepth and maxDepth?
+one place that should know it all is the the parent?
+	every time you add a new node, you update its parent on the depth?
+
+every time entering  a new node, you set the depth property and update it upward until the top most node which has no parent;
+	but return a minDepth as the return of the that upward propagation
+
+
+	

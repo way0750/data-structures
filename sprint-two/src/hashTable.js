@@ -128,7 +128,7 @@ HashTable.prototype.changeTableSize = function () {
 	// debugger;
 	if (fullness >= 0.75) {
 		newLimit = this._limit*2;		
-	} else if (fullness <= 0.25){
+	} else if (fullness <= 0.25) {
 		newLimit = Math.ceil(this._limit/2);
 	}
 
@@ -177,7 +177,7 @@ HashTable.prototype.retrieve = function(k) {
 HashTable.prototype.remove = function(k) {
   var index = getIndexBelowMaxForKey(k, this._limit);
   delete this._storage.get(index)[k];
-  if (Object.keys(this._storage.get(index)).length === 0 ){this._storage.set(index, null);}
+  if (Object.keys(this._storage.get(index)).length === 0 ){ this._storage.set(index, null); }
   this.entrySize--;
 
   if ( (this.entrySize  /  this._limit) < 0.25 ) {

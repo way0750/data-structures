@@ -18,6 +18,10 @@ each node {
 				999 : { 101: true, 203: true , value: value}
 			}
 
+			{
+				name : [];
+			}
+
 			
 
 	its own value

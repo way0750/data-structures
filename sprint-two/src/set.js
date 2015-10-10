@@ -9,15 +9,23 @@ var setPrototype = {};
 
 setPrototype.add = function(item) {
   // set._storage = undefined;
-  this[item] = item;
+  var key = JSON.stringify(item); 
+  this[key] = item;
 };
 
 setPrototype.contains = function(item) {
-	return !!this[item];
+	var key = JSON.stringify(item);
+	return !!this.hasOwnProperty(key);
 };
 
 setPrototype.remove = function(item) {
-	delete this[item];
+	var key = JSON.stringify(item);
+	delete this[key];
+};
+
+setPrototype.get = function(item) {
+	var key = JSON.stringify(item);
+	return this[key];
 };
 
 /*

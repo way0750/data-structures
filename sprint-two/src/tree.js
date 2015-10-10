@@ -22,6 +22,13 @@ var treeMethods = {};
 // remove parent child relationship as a way to disconnect a sub tree;
 // set parent to null
 // then go to parent's children list and remove self.
+// 
+treeMethods.breadthFirstLog = function(callBack){
+	// go through every child first before recursively calling sub sub child
+	
+	
+
+};
 
 treeMethods.removeFromParent = function(){
 	var formerParent = this.parent;
