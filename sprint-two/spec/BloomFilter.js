@@ -36,7 +36,7 @@ describe('BloomFilter', function() {
     bFilter.enterBitArray('b');
     bFilter.enterBitArray('c');
     bFilter.enterBitArray('ab');
-    expect(bFilter.bitArray.toString()).to.equal(',1,,1,,,,,1,1,1,1,1,,,,,1');
+    expect(bFilter.bitArray.toString()).to.equal(',,1,1,,,1,,,1,1,,,1,1,1,1,1');
   });
 
   it('should return true for found key and false for nonexistent key', function(){
@@ -47,5 +47,40 @@ describe('BloomFilter', function() {
     expect(bFilter.checkKey('c')).to.equal(false);
   });
 
+  it('test false positive', function(){
+    
+    var makeRandomArray = function(range, rangeMin){
+      var arr = [];
+      for (var i = 0; i< 20; i++){
+        var num = Math.floor((Math.random()*range))+rangeMin;
+        arr.push(num);
+      }
+      return arr;
+    };
+
+    var falsePositiveRate = 0;
+
+    for (var l = 0; l < 10000; l++){
+      var bloom = new BloomFilter(18, 3);
+      var enterArr = makeRandomArray(30, 0);
+      enterArr.forEach(function(num){
+        bloom.enterBitArray(num);
+      });
+
+      var falseArr = makeRandomArray(30, 40);
+      var falseAmount = 0;
+      // debugger;
+      falseArr.forEach(function(falseNum){
+        if (bloom.checkKey(falseNum)){
+          falseAmount++;
+        }
+      });
+
+      falsePositiveRate+=falseAmount/20;
+    }
+    debugger;
+    expect(falsePositiveRate/10000).to.equal('I just wanna take a look at this number, if it is around 0.88888 then it is correct');
+
+  });
 
 });

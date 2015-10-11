@@ -37,8 +37,8 @@ BloomFilter.prototype.createHashes = function(key) {
 };
 
 BloomFilter.prototype.enterBitArray = function(key) {
-
-    var hashes = this.createHashes(key);
+    var stringedKey = JSON.stringify(key);
+    var hashes = this.createHashes(stringedKey);
     var bFilter = this;
     hashes.forEach(function(hashIndex) {
         bFilter.bitArray[hashIndex] = 1;
@@ -48,9 +48,15 @@ BloomFilter.prototype.enterBitArray = function(key) {
 };
 
 BloomFilter.prototype.checkKey = function(key) {
-    var hashes = this.createHashes(key);
-    var bitArray = this.bitArray;
-    return hashes.every(function(hash) {
-        return bitArray[hash];
-    });
+    var stringedKey = JSON.stringify(key);
+    var hashes = this.createHashes(stringedKey);
+    // var bitArray = this.bitArray;
+    // return hashes.every(function(hash) {
+    //     return bitArray[hash];
+    // });
+    for (var i=0; i<hashes.length; i++){
+        if (!this.bitArray[hashes[i]]) return false;
+    }
+    debugger;
+    return true;
 };
