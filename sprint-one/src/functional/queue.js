@@ -25,3 +25,5 @@ var Queue = function() {
 
   return someInstance;
 };
+
+// does this update anything at all?
